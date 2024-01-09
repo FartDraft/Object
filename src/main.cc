@@ -35,5 +35,6 @@ main() {
         std::cout << "To string: " << object->to_string() << std::endl << std::endl;
     }
 
+    delete new_obj;
     return 0;
 }

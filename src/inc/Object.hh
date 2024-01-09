@@ -8,6 +8,7 @@ struct Object {
     virtual Object* copy(void) const = 0;
     virtual void from_string(std::string s) = 0;
     virtual std::string to_string(void) const = 0;
+    virtual ~Object() = default;
 
     bool
     operator==(const Object& other) const {
@@ -21,6 +22,7 @@ struct Object {
 };
 
 class FractionDB : public Object, public Fraction {
+  public:
     using Fraction::Fraction;
 
     std::string
@@ -48,10 +50,13 @@ class FractionDB : public Object, public Fraction {
     to_string(void) const override {
         return std::string(*this);
     }
+
+    ~FractionDB() = default;
 };
 
 template <typename T>
 class DoublyCircularLinkedListDB : public Object, public DoublyCircularLinkedList<T> {
+  public:
     using DoublyCircularLinkedList<T>::DoublyCircularLinkedList;
 
     std::string
@@ -104,4 +109,6 @@ class DoublyCircularLinkedListDB : public Object, public DoublyCircularLinkedLis
         result << "Head";
         return result.str();
     }
+
+    ~DoublyCircularLinkedListDB() { this->clear(); };
 };
